@@ -1,0 +1,27 @@
+[
+  {
+    "id": "dark",
+    "name": "Dark",
+    "value": "#171406"
+  },
+  {
+    "id": "dark-glare",
+    "name": "Dark Glare",
+    "value": "#2d2816"
+  },
+  {
+    "id": "mid",
+    "name": "Mid",
+    "value": "#aba9a2"
+  },
+  {
+    "id": "light",
+    "name": "Light",
+    "value": "#ffffff"
+  },
+  {
+    "id": "primary",
+    "name": "Primary",
+    "value": "#fccd26"
+  }
+]

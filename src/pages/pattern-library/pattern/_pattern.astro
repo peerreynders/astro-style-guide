@@ -1,0 +1,30 @@
+---
+interface Props {
+	previewHref: string;
+	source?: string;
+}
+
+const { previewHref, source } = Astro.props;
+---
+
+<div class="c-flow">
+	<iframe
+		class="b-pattern-library__preview-frame"
+		src=`${ previewHref }?state=window`></iframe>
+	<div>
+		<a href={previewHref} class="b-button">View full screen</a>
+	</div>
+	{
+		source && (
+			<div class="py-m">
+				<div>
+					<p>
+						<strong>Source</strong>
+					</p>
+					{/* prettier-ignore */}
+					<pre><code>{source}</code></pre>
+				</div>
+			</div>
+		)
+	}
+</div>

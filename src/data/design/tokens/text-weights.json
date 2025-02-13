@@ -1,0 +1,22 @@
+[
+  {
+    "id": "regular",
+    "name": "Regular",
+    "value": 400
+  },
+  {
+    "id": "medium",
+    "name": "Medium",
+    "value": 500
+  },
+  {
+    "id": "bold",
+    "name": "Bold",
+    "value": 700
+  },
+  {
+    "id": "black",
+    "name": "Black",
+    "value": 900
+  }
+]

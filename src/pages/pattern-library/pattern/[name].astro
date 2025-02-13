@@ -1,0 +1,82 @@
+---
+import { render } from 'astro:content';
+import PatternLibrary from '../../../layouts/pattern-library.astro';
+import { fromPatterns, nameFromPattern } from '../../../lib/collections.js';
+import { preparePreviews } from '../../../lib/pattern-preview.js';
+import Pattern from './_pattern.astro';
+
+import '../../../styles/blocks/_button.scss';
+
+import type { CollectionEntry } from 'astro:content';
+
+export async function getStaticPaths() {
+	return (await fromPatterns()).map((entry) => {
+		const name = nameFromPattern(entry);
+		return {
+			params: {
+				name,
+			},
+			props: {
+				name,
+				entry,
+			},
+		};
+	});
+}
+
+interface Props {
+	name: string;
+	entry: CollectionEntry<'patterns'>;
+}
+
+const { entry } = Astro.props;
+const summary = entry.data.summary;
+const withInfo = Boolean(entry.body?.trim());
+const { Content } = await render(entry);
+
+const previews = await preparePreviews(entry);
+const variants = previews.length > 1 ? previews.slice(1) : undefined;
+const pattern = previews[0];
+---
+
+<PatternLibrary title={pattern.title}>
+	{summary && <Fragment slot="summary">{summary}</Fragment>}
+
+	{
+		variants && (
+			<nav class="c-cluster gutter-xs mb-xl" aria-label="variants">
+				{variants.map((v) => (
+					<a class="b-button" data-type="badge" href={`#${v.name}`}>
+						{v.title}
+					</a>
+				))}
+			</nav>
+		)
+	}
+
+	<Pattern previewHref={pattern.previewHref} source={pattern.source} />
+
+	{
+		withInfo && (
+			<article class="c-flow">
+				<h2>Information</h2>
+				<Content />
+			</article>
+		)
+	}
+	{
+		variants && (
+			<>
+				<h2>Variants</h2>
+				{variants.map((v) => (
+					<>
+						<h3 id={v.name}>{v.title}</h3>
+						<div>
+							<Pattern previewHref={v.previewHref} source={v.source} />
+						</div>
+					</>
+				))}
+			</>
+		)
+	}
+</PatternLibrary>

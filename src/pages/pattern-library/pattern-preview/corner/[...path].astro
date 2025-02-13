@@ -1,0 +1,31 @@
+---
+import {
+	findPatternByName,
+	fromPatterns,
+} from '../../../../lib/collections.js';
+import PatternPreview from '../../../../layouts/pattern-preview.astro';
+import Preview from '../../../../data/design/pattern/corner/preview.astro';
+import Themed from '../../../../data/design/pattern/corner/themed.astro';
+
+import '../../../../styles/blocks/_corner.scss';
+
+export function getStaticPaths() {
+	return [{ params: { path: 'themed' } }, { params: { path: undefined } }];
+}
+
+const text = 'Corner';
+const name = text.toLowerCase();
+const patterns = await fromPatterns();
+const item = findPatternByName(patterns, name);
+const variant = Astro.params.path;
+const title = `${item?.data.title ?? text}${variant ? ` [${variant}]` : ''}`;
+---
+
+<style is:global>
+	body {
+		background: var(--color-dark-glare);
+	}
+</style>
+<PatternPreview name={name} title={title}>
+	{variant === 'themed' ? <Themed /> : <Preview />}
+</PatternPreview>

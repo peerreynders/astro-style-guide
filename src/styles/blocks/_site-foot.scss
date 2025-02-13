@@ -1,0 +1,10 @@
+.b-site-foot {
+  background: var(--color-dark-glare);
+  color: var(--color-light);
+  line-height: var(--leading-flat);
+  padding-block: var(--space-m);
+}
+
+.b-site-foot .c-wrapper * {
+  margin: 0;
+}

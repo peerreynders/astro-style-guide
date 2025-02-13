@@ -1,0 +1,40 @@
+---
+import {
+	findPatternByName,
+	fromPatterns,
+} from '../../../../lib/collections.js';
+import PatternPreview from '../../../../layouts/pattern-preview.astro';
+import Preview from '../../../../data/design/pattern/button/preview.astro';
+import Link from '../../../../data/design/pattern/button/link.astro';
+import Secondary from '../../../../data/design/pattern/button/secondary.astro';
+
+import '../../../../styles/blocks/_corner.scss';
+import '../../../../styles/blocks/_button.scss';
+
+export function getStaticPaths() {
+	return [
+		{ params: { path: 'link' } },
+		{ params: { path: 'secondary' } },
+		{ params: { path: undefined } },
+	];
+}
+
+const text = 'Button';
+const name = text.toLowerCase();
+const patterns = await fromPatterns();
+const item = findPatternByName(patterns, name);
+const variant = Astro.params.path;
+const title = `${item?.data.title ?? text}${variant ? ` [${variant}]` : ''}`;
+---
+
+<PatternPreview name={name} title={title}>
+	{
+		variant === 'link' ? (
+			<Link />
+		) : variant === 'secondary' ? (
+			<Secondary />
+		) : (
+			<Preview />
+		)
+	}
+</PatternPreview>

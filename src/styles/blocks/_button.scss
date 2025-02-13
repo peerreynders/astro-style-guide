@@ -1,0 +1,56 @@
+.b-button {
+  --button-bg: var(--color-primary);
+  --button-text: var(--color-dark);
+  --button-x-padding: 2em;
+  --button-y-padding: 1.1em;
+  --button-gutter: 0.5ch;
+  --focus-color: var(--color-primary);
+
+  display: inline-flex;
+  gap: var(--button-gutter);
+  align-items: center;
+  line-height: var(--leading-flat);
+  position: relative;
+  border: none;
+  cursor: pointer;
+  background: var(--button-bg);
+  color: var(--button-text);
+  padding: var(--button-y-padding) var(--button-x-padding);
+  text-transform: uppercase;
+  letter-spacing: var(--uppercase-kerning);
+  text-decoration: none;
+  font-size: var(--size-step-00);
+  font-weight: var(--font-bold);
+}
+
+.b-button:has(.b-corner) {
+  padding-inline-end: calc(var(--button-x-padding) * 2);
+}
+
+.b-button .b-corner {
+  --corner-size: 100%;
+
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.b-button:hover {
+  filter: brightness(105%);
+}
+
+.b-button:hover .b-corner {
+  --corner-offset: 60%;
+}
+
+.b-button:active {
+  transform: scale(99%);
+}
+
+/* Variant exceptions */
+.b-button[data-button-variant="secondary"] {
+  --button-bg: var(--color-dark-glare);
+  --button-text: var(--color-primary);
+  --focus-color: var(--color-dark);
+  --corner-secondary-color: var(--color-primary);
+}

@@ -1,0 +1,82 @@
+---
+import { getCollection } from 'astro:content';
+import PatternLibrary from '../../layouts/pattern-library.astro';
+
+const title = 'Spacing';
+const toc = [{ href: '#usage', text: 'Usage' }];
+const spacing = await getCollection('designSpacing');
+---
+
+<PatternLibrary title={title} toc={toc}>
+	<p>
+		Spacing follows a fluid scale, meaning that text scales based on the size of
+		the viewport and follows a sizing ratio.
+	</p>
+	<table>
+		<thead>
+			<tr>
+				<th style="width: 100px"></th>
+				<th>Name</th>
+				<th>Min</th>
+				<th>Max</th>
+			</tr>
+		</thead>
+		<tbody>
+			{
+				spacing.map((item) => (
+					<tr>
+						<td>
+							<div
+								class="bg-dark p-[3px]"
+								style={`min-height: var(--space-${item.id})`}
+							/>
+						</td>
+						<td>{item.data.name}</td>
+						<td>{item.data.min}px</td>
+						<td>{item.data.max}px</td>
+					</tr>
+				))
+			}
+		</tbody>
+	</table>
+	<hr />
+	<h2 id="usage">Usage</h2>
+	<table>
+		<thead>
+			<tr>
+				<th>Vertical Padding Utility</th>
+				<th>Horizontal Padding Utility</th>
+				<th>Margin Top Utility</th>
+				<th>Flow Space Utility</th>
+				<th>Gutter Utility</th>
+				<th>CSS Custom Property</th>
+			</tr>
+		</thead>
+		<tbody>
+			{
+				spacing.map((item) => (
+					<tr>
+						<td>
+							<code>.py-{item.id}</code>
+						</td>
+						<td>
+							<code>.px-{item.id}</code>
+						</td>
+						<td>
+							<code>.mt-{item.id}</code>
+						</td>
+						<td>
+							<code>.flow-space-{item.id}</code>
+						</td>
+						<td>
+							<code>.gutter-{item.id}</code>
+						</td>
+						<td>
+							<code>var(--space-{item.id})</code>
+						</td>
+					</tr>
+				))
+			}
+		</tbody>
+	</table>
+</PatternLibrary>

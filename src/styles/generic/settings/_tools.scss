@@ -1,0 +1,11 @@
+// file src/styles/global/settings/_helpers.scss
+@use "sass:map";
+
+@function from-map($ref, $name, $key) {
+  $result: map.get($ref, $key);
+  @if ($result) {
+    @return $result;
+  }
+
+  @error #{'"' + $key + '" is not supported by "' + $name + '"'};
+}

@@ -1,0 +1,31 @@
+---
+import Icon from './icon.astro';
+import Corner from './corner.html';
+export interface Props {
+	href?: string;
+	label: string;
+	variant?: 'link' | 'secondary';
+}
+
+const { label, variant } = Astro.props;
+const href =
+	typeof Astro.props.href === 'string' && Astro.props.href.length > 0
+		? Astro.props.href
+		: undefined;
+---
+
+{
+	href ? (
+		<a class="b-button" href={href} data-button-variant={variant}>
+			<span>{label}</span>
+			<Icon icon="arrow" />
+			<Corner />
+		</a>
+	) : (
+		<button class="b-button" data-button-variant={variant}>
+			<span>{label}</span>
+			<Icon icon="arrow" />
+			<Corner />
+		</button>
+	)
+}

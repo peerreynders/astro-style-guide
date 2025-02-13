@@ -1,0 +1,60 @@
+---
+import { getCollection } from 'astro:content';
+import PatternLibrary from '../../layouts/pattern-library.astro';
+
+const colors = await getCollection('designColors');
+const title = 'Colors';
+---
+
+<PatternLibrary title={title}>
+	<Fragment slot="summary">
+		You can either use colors directly, using a CSS Custom Property, or with
+		generated CSS utility classes
+	</Fragment>
+	<div>
+		<table>
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Hex code</th>
+					<th>Custom Property</th>
+					<th>Color Utility Class</th>
+					<th>BG Utility Class</th>
+				</tr>
+			</thead>
+			<tbody>
+				{
+					colors.map((item) => (
+						<tr>
+							<td>
+								<div
+									class="c-cluster items-center gutter-s"
+									style="flex-wrap: nowrap"
+								>
+									<div
+										class="b-pattern-library__swatch"
+										style={`background: ${item.data.value}`}
+										role="presentation"
+									/>
+									<strong>{item.data.name}</strong>
+								</div>
+							</td>
+							<td>
+								<code>{item.data.value}</code>
+							</td>
+							<td>
+								<code>var(--color-{item.id})</code>
+							</td>
+							<td>
+								<code>.text-{item.id}</code>
+							</td>
+							<td>
+								<code>.bg-{item.id}</code>
+							</td>
+						</tr>
+					))
+				}
+			</tbody>
+		</table>
+	</div>
+</PatternLibrary>

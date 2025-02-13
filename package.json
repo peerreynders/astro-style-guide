@@ -1,0 +1,35 @@
+{
+  "name": "astro-style-guide",
+  "type": "module",
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro",
+    "lint:types": "astro check && tsc --noEmit",
+    "format": "prettier --write ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/peerreynders/astro-style-guide"
+  },
+  "keywords": [],
+  "author": "Peer Reynders",
+  "license": "MIT",
+  "homepage": "https://github.com/peerreynders/astro-style-guide/tree/main?tab=readme-ov-file#astro-style-guide",
+  "bugs": {
+    "url": "https://github.com/peerreynders/astro-style-guide/issues"
+  },
+	"dependencies": {
+    "@astrojs/check": "^0.9.4",
+    "astro": "^5.2.6",
+    "typescript": "^5.7.3"
+  },
+  "devDependencies": {
+    "@types/node": "^22.13.1",
+    "prettier": "^3.5.0",
+    "prettier-plugin-astro": "^0.14.1",
+    "sass": "^1.84.0"
+  }
+}

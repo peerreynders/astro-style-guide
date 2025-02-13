@@ -1,0 +1,42 @@
+// file: src/styles/generic/_variables.scss
+@use "settings" as st;
+@use "settings/color-tokens" as c;
+@use "settings/space-tokens" as sp;
+@use "settings/size-tokens" as sz;
+@use "settings/leading-tokens" as ld;
+@use "settings/font-tokens" as ft;
+@use "settings/weight-tokens" as fw;
+
+:root {
+  @each $key, $color in c.$color-tokens {
+    --color-#{$key}: #{$color};
+  }
+  @each $key, $space in sp.$space-tokens {
+    --space-#{$key}: #{$space};
+  }
+  @each $key, $size in sz.$size-tokens {
+    --size-step-#{$key}: #{$size};
+  }
+  @each $key, $height in ld.$leading-tokens {
+    --leading-#{$key}: #{$height};
+  }
+  @each $key, $font in ft.$font-tokens {
+    --font-#{$key}: #{$font};
+  }
+  @each $key, $weight in fw.$weight-tokens {
+    --font-#{$key}: #{$weight};
+  }
+  --gutter: #{st.space("m-l")};
+  --transition-base: 250ms ease;
+  --transition-movement: 200ms linear;
+  --transition-fade: 300ms ease;
+  --transition-bounce: 500ms cubic-bezier(0.5, 0.05, 0.2, 1.5);
+  --stroke-width: #{st.$stroke-width};
+  --stroke: #{st.$stroke-width} dashed #{st.color("mid")};
+  --stroke-solid: #{st.$stroke-width} solid #{st.color("mid")};
+  --radius-s: 0.2rem;
+  --radius-m: 0.75rem;
+  --radius-l: 2.5rem;
+  --uppercase-kerning: 0.04ch;
+  --indent-size: var(--space-xs-l);
+}

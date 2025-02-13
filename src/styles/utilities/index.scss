@@ -1,0 +1,38 @@
+// file: src/styles/utilities/index.scss
+@use "../generic/settings/color-tokens" as c;
+
+@each $key, $color in c.$color-tokens {
+  .u-indent-color-#{$key} {
+    --indent-color: #{$color};
+  }
+}
+
+.u-indent {
+  border-inline-start: var(--indent-size, var(--space-xs-l)) solid
+    var(--indent-color, currentColor);
+}
+
+/* 
+REGION UTILITY
+Consistent block padding for page sections
+*/
+.u-region {
+  padding-block: var(--region-space, var(--space-m));
+  position: relative;
+}
+
+/* 
+VISUALLY HIDDEN UTILITY
+Info: https://piccalil.li/quick-tip/visually-hidden/ 
+*/
+.u-visually-hidden {
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 0;
+  margin: 0;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+  white-space: nowrap;
+}

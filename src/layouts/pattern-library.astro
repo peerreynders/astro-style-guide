@@ -1,0 +1,119 @@
+---
+import {
+	fromPatterns,
+	fromSidebar,
+	hrefFromPattern,
+	sortPatternsByNameAsc,
+} from '../lib/collections';
+import Base from './base.astro';
+import Closer from '../design/closer.astro';
+import Icon from '../design/icon.astro';
+import SiteFoot from '../design/site-foot.html';
+import StackLink from './pattern-library/stack-link.astro';
+import BrandNav from './pattern-library/brand-nav.html';
+
+import '../styles/pattern-library.scss';
+
+type tocItem = {
+	href: string;
+	text: string;
+};
+
+export type Props = {
+	title?: string;
+	toc?: Array<tocItem>;
+};
+
+const pageHref = Astro.url.pathname;
+const title = Astro.props.title ?? 'Pattern-Library';
+const toc = Astro.props.toc;
+const patterns = sortPatternsByNameAsc(await fromPatterns());
+const sidebar = (await fromSidebar()).map((item) => item.data);
+---
+
+<Base title={title}>
+	<div class="b-pattern-library c-wrapper">
+		<header class="b-pattern-library__header c-flow">
+			<a href="/pattern-library">
+				<Icon icon="brand-full" />
+			</a>
+			<BrandNav />
+		</header>
+		<main class="c-sidebar">
+			<nav class="b-pattern-library__sidebar c-flow" aria-label="design system">
+				<div class="b-pattern-library__sidebar-inner pt-2xl">
+					{
+						sidebar.map((group, index) => (
+							<>
+								{index > 0 ? <hr /> : undefined}
+								<h2>{group.title}</h2>
+								<ul class="b-pattern-library__nav" role="list">
+									{group.items.map((link) => (
+										<li>
+											<StackLink
+												href={link.url}
+												pageHref={pageHref}
+												text={link.text}
+											/>
+										</li>
+									))}
+								</ul>
+							</>
+						))
+					}
+					<hr />
+					<h2>Patterns</h2>
+					<ul class="b-pattern-library__nav" role="list">
+						<li>
+							<StackLink
+								href="/pattern-library/all-patterns"
+								pageHref={pageHref}
+								text="All"
+							/>
+						</li>
+						{
+							patterns.map((item) => (
+								<li>
+									<StackLink
+										href={hrefFromPattern(item)}
+										pageHref={pageHref}
+										text={item.data.title}
+									/>
+								</li>
+							))
+						}
+					</ul>
+				</div>
+			</nav>
+			<div>
+				<div class="c-wrapper c-flow b-prose pt-2xl">
+					<h1 class="c-cluster">{title}</h1>
+					<slot name="summary" />
+					{
+						toc ? (
+							<nav
+								class="b-pattern-library__toc"
+								aria-label="table of contents"
+							>
+								<p>Skip to section:</p>
+								<ul>
+									{toc.map((item) => (
+										<li>
+											<a href={item.href}>{item.text}</a>
+										</li>
+									))}
+								</ul>
+							</nav>
+						) : undefined
+					}
+					<slot />
+				</div>
+			</div>
+		</main>
+		<div class="py-m leading-[0.75]">
+			<BrandNav />
+		</div>
+	</div>
+	<Closer />
+	<SiteFoot />
+</Base>

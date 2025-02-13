@@ -1,0 +1,27 @@
+[
+  {
+    "id": "micro",
+    "name": "Micro",
+    "value": 0.85
+  },
+  {
+    "id": "flat",
+    "name": "Flat",
+    "value": 1
+  },
+  {
+    "id": "fine",
+    "name": "Fine",
+    "value": 1.2
+  },
+  {
+    "id": "standard",
+    "name": "Standard",
+    "value": 1.4
+  },
+  {
+    "id": "loose",
+    "name": "Loose",
+    "value": 1.7
+  }
+]

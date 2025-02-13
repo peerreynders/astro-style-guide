@@ -1,0 +1,80 @@
+// file: src/styles/generic/_todo.scss
+@use "./settings" as s;
+@use "settings/color-tokens" as c;
+@use "settings/leading-tokens" as ld;
+@use "settings/size-tokens" as sz;
+@use "settings/space-tokens" as sp;
+@use "settings/font-tokens" as ft;
+@use "settings/weight-tokens" as fw;
+
+@each $key, $color in c.$color-tokens {
+  .bg-#{$key} {
+    background-color: #{$color};
+  }
+}
+
+@each $key, $font in ft.$font-tokens {
+  .font-#{$key} {
+    font: #{$font};
+  }
+}
+
+@each $key, $height in ld.$leading-tokens {
+  .leading-#{$key} {
+    line-height: #{$height};
+  }
+}
+
+@each $key, $size in sz.$size-tokens {
+  .text-step-#{$key} {
+    font-size: #{$size};
+  }
+}
+
+@each $key, $space in sp.$space-tokens {
+  .flow-space-#{$key} {
+    --flow-space: #{$space};
+  }
+
+  .gutter-#{$key} {
+    --gutter: #{$space};
+  }
+
+  .mb-#{$key} {
+    margin-block-end: #{$space};
+  }
+}
+
+@each $key, $weight in fw.$weight-tokens {
+  .font-#{$key} {
+    font-weight: #{$weight};
+  }
+}
+
+.items-center {
+  align-items: center;
+}
+
+.leading-\[0\.75\] {
+  line-height: 0.75;
+}
+
+.leading-\[1\] {
+  line-height: 1;
+}
+
+.p-\[3px\] {
+  padding: 3px;
+}
+
+.p-m {
+  padding: s.space("m");
+}
+
+.pt-2xl {
+  padding-block-start: s.space("2xl");
+}
+
+.py-m {
+  padding-block: s.space("m");
+}

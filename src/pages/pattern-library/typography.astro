@@ -1,0 +1,188 @@
+---
+import { getCollection } from 'astro:content';
+import PatternLibrary from '../../layouts/pattern-library.astro';
+
+const title = 'Typography';
+const toc = [
+	{
+		href: '#sizes',
+		text: 'Sizes',
+	},
+	{
+		href: '#leading',
+		text: 'Leading',
+	},
+	{
+		href: '#weights',
+		text: 'Weights',
+	},
+	{
+		href: '#fonts',
+		text: 'Fonts',
+	},
+];
+const fonts = await getCollection('designFonts');
+const leading = await getCollection('designTextLeading');
+const sizes = await getCollection('designTextSizes');
+const weights = await getCollection('designTextWeights');
+---
+
+<PatternLibrary title={title} toc={toc}>
+	<h2 tabindex="-1" id="sizes">Sizes</h2>
+	<p>
+		Text sizes follow a fluid scale, meaning that text scales based on the size
+		of the viewport and follows a sizing ratio.
+	</p>
+	{
+		sizes.map((item, index) => (
+			<p
+				style={`font-size: var(--size-${item.id})`}
+				class={`leading-flat ${index > 5 ? 'font-display ' : ''} ${index > 8 ? 'font-special ' : ''}`}
+			>
+				{`${item.data.name} (min: ${item.data.min}px / max: ${item.data.max}px)`}
+			</p>
+		))
+	}
+	<hr />
+
+	<h3>Usage</h3>
+
+	<table>
+		<thead>
+			<tr>
+				<th>Utility Class</th>
+				<th>CSS Custom Property</th>
+			</tr>
+		</thead>
+		<tbody>
+			{
+				sizes.map((item) => (
+					<tr>
+						<td>
+							<code>.text-{item.id}</code>
+						</td>
+						<td>
+							<code>var(--size-{item.id})</code>
+						</td>
+					</tr>
+				))
+			}
+		</tbody>
+	</table>
+	<h2 tabindex="-1" id="leading">Leading</h2>
+	{
+		leading.map((item) => (
+			<>
+				<p
+					style={`line-height: var(--leading-${item.id}); font-weight: bold;`}
+				>{`${item.data.name} (value: ${item.data.value})`}</p>
+				<p style={`line-height: var(--leading-${item.id})`}>
+					Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
+					eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
+					minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+					aliquip ex ea commodo.
+				</p>
+			</>
+		))
+	}
+	<hr />
+
+	<h3>Usage</h3>
+
+	<table>
+		<thead>
+			<tr>
+				<th>Utility Class</th>
+				<th>CSS Custom Property</th>
+			</tr>
+		</thead>
+		<tbody>
+			{
+				leading.map((item) => (
+					<tr>
+						<td>
+							<code>.leading-{item.id}</code>
+						</td>
+						<td>
+							<code>var(--leading-{item.id})</code>
+						</td>
+					</tr>
+				))
+			}
+		</tbody>
+	</table>
+
+	<h2 tabindex="-1" id="weights">Weights</h2>
+	{
+		weights.map((item) => (
+			<p class={`font-${item.id}`}>
+				<span class={`font-${item.id}`}>{item.data.name}</span> (
+				{item.data.value})
+			</p>
+		))
+	}
+	<hr />
+
+	<h3>Usage</h3>
+	<table>
+		<thead>
+			<tr>
+				<th>Utility Class</th>
+				<th>CSS Custom Property</th>
+			</tr>
+		</thead>
+		<tbody>
+			{
+				weights.map((item) => (
+					<tr>
+						<td>
+							<code>.font-{item.id}</code>
+						</td>
+						<td>
+							<code>var(--font-{item.id})</code>
+						</td>
+					</tr>
+				))
+			}
+		</tbody>
+	</table>
+
+	<h2 tabindex="-1" id="fonts">Fonts</h2>
+	{
+		fonts.map((item) => (
+			<div
+				style={`font-family: var(--font-${item.id});`}
+				class="leading-loose py-m c-flow"
+			>
+				<p class="text-step-4">{item.data.name}</p>
+				<p class="text-step-1">{item.data.description}</p>
+			</div>
+		))
+	}
+	<hr />
+
+	<h3>Usage</h3>
+
+	<table>
+		<thead>
+			<tr>
+				<th>Utility Class</th>
+				<th>CSS Custom Property</th>
+			</tr>
+		</thead>
+		<tbody>
+			{
+				fonts.map((item) => (
+					<tr>
+						<td>
+							<code>.font-{item.id}</code>
+						</td>
+						<td>
+							<code>var(--font-{item.id})</code>
+						</td>
+					</tr>
+				))
+			}
+		</tbody>
+	</table>
+</PatternLibrary>

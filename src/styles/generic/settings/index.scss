@@ -1,0 +1,28 @@
+// file src/styles/global/settings/index.scss
+@use "sass:map";
+@use "tools" as tl;
+@use "color-tokens" as c;
+@use "space-tokens" as sp;
+@use "viewport-tokens" as vw;
+
+$stroke-width: 1px;
+
+@function color($key) {
+  @return tl.from-map(c.$color-tokens, "color", $key);
+}
+
+@function space($key) {
+  @return tl.from-map(sp.$space-tokens, "space", $key);
+}
+
+@mixin screen($key) {
+  $target: map.get(vw.$viewport-tokens, $key);
+
+  @if $target {
+    @media (min-width: #{ $target }) {
+      @content;
+    }
+  } @else {
+    @error #{ 'Screen key ‘' + $key + '’ not found in `$viewport-tokens`.' };
+  }
+}

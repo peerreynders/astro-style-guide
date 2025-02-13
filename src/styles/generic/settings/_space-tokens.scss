@@ -1,0 +1,14 @@
+// file src/styles/global/settings/_space-tokens.scss
+$space-tokens: (
+  "xs": clamp(0.4375rem, 0.42rem + 0.1vw, 0.5rem),
+  "s": clamp(0.875rem, 0.83rem + 0.2vw, 1rem),
+  "m": clamp(1.3125rem, 1.25rem + 0.29vw, 1.5rem),
+  "l": clamp(2.1875rem, 2.09rem + 0.49vw, 2.5rem),
+  "xl": clamp(3.0625rem, 2.92rem + 0.69vw, 3.5rem),
+  "2xl": clamp(3.5rem, 3.34rem + 0.78vw, 4rem),
+  "3xl": clamp(4.375rem, 4.17rem + 0.98vw, 5rem),
+  "4xl": clamp(6.5625rem, 6.26rem + 1.47vw, 7.5rem),
+  "xs-l": clamp(0.4375rem, -0.23rem + 3.24vw, 2.5rem),
+  "m-l": clamp(1.3125rem, 0.93rem + 1.86vw, 2.5rem),
+  "2xl-4xl": clamp(3.5rem, 2.21rem + 6.27vw, 7.5rem),
+);

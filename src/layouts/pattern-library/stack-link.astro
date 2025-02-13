@@ -1,0 +1,11 @@
+---
+export interface Props {
+	href: string;
+	pageHref: string;
+	text: string;
+}
+
+const { href, pageHref, text } = Astro.props;
+---
+
+<a href={href} aria-current={href === pageHref ? 'page' : undefined}>{text}</a>

@@ -1,0 +1,51 @@
+// file: src/styles/component/_prose.scss
+@use "../generic" as g;
+
+.b-prose {
+  --flow-space: var(--space-l);
+}
+
+.b-prose :is(h1, h2, h3) {
+  overflow-wrap: anywhere;
+  hyphens: auto;
+}
+
+.b-prose :is(p, li, dl, figcaption, blockquote) {
+  max-width: 60ch;
+  text-wrap: pretty;
+}
+
+.b-prose :is(h1, h2, h3, h4) + *:not([class]) {
+  --flow-space: var(--space-m);
+}
+
+/* Add more space on and around figures and tables */
+.b-prose :is(figure, table),
+.b-prose :is(figure, table) + * {
+  --flow-space: var(--space-2xl);
+}
+
+/* Add more space to headings on block start */
+.b-prose * + :is(h1, h2, h3, h4):not([class]) {
+  --flow-space: var(--space-xl);
+}
+
+.b-prose :is(ul, ol):not([class]) li + li,
+.b-prose :is(ul, ol):not([class]) li > :is(ol, ul) {
+  --flow-space: var(--space-xs);
+}
+
+.b-prose hr {
+  --flow-space: var(--space-2xl);
+}
+
+.b-prose :is(img, picture, video) {
+  border: var(--stroke-solid);
+}
+
+@include g.screen("mid") {
+  .b-prose :is(h1, h2, h3) {
+    overflow-wrap: unset;
+    hyphens: unset;
+  }
+}
