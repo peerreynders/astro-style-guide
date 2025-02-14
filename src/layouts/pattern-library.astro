@@ -14,14 +14,14 @@ import BrandNav from './pattern-library/brand-nav.html';
 
 import '../styles/pattern-library.scss';
 
-type tocItem = {
+type TocItem = {
 	href: string;
 	text: string;
 };
 
 export type Props = {
 	title?: string;
-	toc?: Array<tocItem>;
+	toc?: Array<TocItem>;
 };
 
 const pageHref = Astro.url.pathname;

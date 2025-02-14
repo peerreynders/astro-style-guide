@@ -1,0 +1,29 @@
+---
+export type NavItem = {
+	href: string;
+	label: string;
+	current?: boolean;
+};
+
+export interface Props {
+	items: Array<NavItem>;
+	label?: string;
+	variant?: 'stacked';
+}
+
+const { items, label, variant } = Astro.props;
+---
+
+<nav aria-label={label} class="b-nav">
+	<ul class={variant === 'stacked' ? 'c-flow' : 'c-cluster'} role="list">
+		{
+			items.map((item) => (
+				<li>
+					<a href={item.href} aria-current={item.current ? 'page' : undefined}>
+						{item.label}
+					</a>
+				</li>
+			))
+		}
+	</ul>
+</nav>

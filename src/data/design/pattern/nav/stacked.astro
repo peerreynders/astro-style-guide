@@ -1,0 +1,11 @@
+---
+import Nav from '../../../../design/nav.astro';
+
+const items = [
+	{ label: 'Courses', href: '#', current: true },
+	{ label: 'About', href: '#' },
+	{ label: 'Contact', href: '#' },
+];
+---
+
+<Nav items={items} label="Primary" variant="stacked" />

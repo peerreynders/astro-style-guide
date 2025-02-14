@@ -1,34 +1,42 @@
 ---
-import '../styles/global.scss';
+import { findPatternByName, fromPatterns } from '../lib/collections.js';
+import PreviewPage from './preview-page.astro';
+
+import type { CollectionEntry } from 'astro:content';
 
 export interface Props {
-	title: string;
 	name: string;
+	title: string;
+	variant?: string;
 }
 
-const { name, title } = Astro.props;
+function variantTitleFromEntry(
+	entry?: CollectionEntry<'patterns'>,
+	variant?: string
+) {
+	return (
+		(variant &&
+			entry &&
+			entry.data?.variants?.find(({ name }) => name === variant)?.title) ??
+		variant
+	);
+}
+
+function previewPageTitle(
+	defaultTitle: string,
+	entry?: CollectionEntry<'patterns'>,
+	variant?: string
+) {
+	const variantTitle = variantTitleFromEntry(entry, variant);
+	return `${entry?.data.title ?? defaultTitle}${variant ? ` [${variantTitle}]` : ''}`;
+}
+
+const { name, title: fallbackTitle, variant } = Astro.props;
+const patterns = await fromPatterns();
+const entry = findPatternByName(patterns, name);
+const title = previewPageTitle(fallbackTitle, entry, variant);
 ---
 
-<!doctype html>
-<html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
-		<style>
-			body {
-				padding: 1rem 1rem 5rem;
-				min-height: unset;
-				margin: 0;
-			}
-		</style>
-		<title>{title} — Pattern Preview</title>
-	</head>
-	<body class={`preview-${name}`}>
-		<div class="preview">
-			<slot />
-		</div>
-	</body>
-</html>
+<PreviewPage name={name} title={title}>
+	<slot />
+</PreviewPage>

@@ -1,0 +1,16 @@
+---
+import LabelledIcon from './labelled-icon.astro';
+
+export interface Props {
+	heading: string;
+	text: string;
+	utilities?: string;
+}
+
+const { heading, text, utilities } = Astro.props;
+---
+
+<header class="b-headline c-repel">
+	<h2 class="b-headline__heading">{heading}</h2>
+	<LabelledIcon text={text} utilities={utilities} />
+</header>

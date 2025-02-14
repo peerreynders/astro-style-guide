@@ -1,0 +1,20 @@
+---
+import PatternPreview from '../../../../layouts/pattern-preview.astro';
+import Preview from '../../../../data/design/pattern/labelled-icon/preview.astro';
+import StyledWithUtilities from '../../../../data/design/pattern/labelled-icon/styled-with-utilities.astro';
+
+import '../../../../styles/blocks/_labelled-icon.scss';
+
+export function getStaticPaths() {
+	return [
+		{ params: { path: 'styled-with-utilities' } },
+		{ params: { path: undefined } },
+	];
+}
+
+const variant = Astro.params.path;
+---
+
+<PatternPreview name="labelled-icon" title="Labelled Icon" variant={variant}>
+	{variant ? <StyledWithUtilities /> : <Preview />}
+</PatternPreview>

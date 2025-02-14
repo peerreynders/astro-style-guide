@@ -1,5 +1,9 @@
 ---
 title: Labelled Icon
+variants:
+  - name: styled-with-utilities
+    title: Styled with Utilities
+    preview: styled-with-utilities.astro
 ---
 
 This block is mainly structural because the visuals will be controlled by a wider page context. Therefore, colour is inherited by default.

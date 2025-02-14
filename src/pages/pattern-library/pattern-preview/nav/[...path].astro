@@ -1,0 +1,17 @@
+---
+import PatternPreview from '../../../../layouts/pattern-preview.astro';
+import Preview from '../../../../data/design/pattern/nav/preview.astro';
+import Stacked from '../../../../data/design/pattern/nav/stacked.astro';
+
+import '../../../../styles/blocks/_nav.scss';
+
+export function getStaticPaths() {
+	return [{ params: { path: 'stacked' } }, { params: { path: undefined } }];
+}
+
+const variant = Astro.params.path;
+---
+
+<PatternPreview name="nav" title="Nav" variant={variant}>
+	{variant === 'stacked' ? <Stacked /> : <Preview />}
+</PatternPreview>

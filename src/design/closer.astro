@@ -1,9 +1,36 @@
 ---
 import Icon from './icon.astro';
+
+import type { NavItem } from './nav.astro';
+
+export interface Props {
+	navLabel?: string;
+	navItems?: Array<NavItem>;
+}
+
+const { navItems: items, navLabel: label } = Astro.props;
 ---
 
 <div class="b-closer">
 	<div class="c-wrapper c-flow">
 		<Icon icon="brand-exploded" />
+		{
+			items?.length && (
+				<nav aria-label={label} class="b-nav">
+					<ul class="c-cluster" role="list">
+						{items.map((item) => (
+							<li>
+								<a
+									href={item.href}
+									aria-current={item.current ? 'page' : undefined}
+								>
+									{item.label}
+								</a>
+							</li>
+						))}
+					</ul>
+				</nav>
+			)
+		}
 	</div>
 </div>

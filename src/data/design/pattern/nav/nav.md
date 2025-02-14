@@ -1,5 +1,9 @@
 ---
 title: Nav
+variants:
+  - name: stacked
+    title: Stacked
+    preview: stacked.astro
 ---
 
 The layout is controlled by [`flow`](/pattern-library/css-compositions/#flow) and [`cluster`](/pattern-library/css-compositions/#cluster). The variants in this pattern library only change that layout system.

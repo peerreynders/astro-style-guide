@@ -1,0 +1,16 @@
+---
+import Icon from './icon.astro';
+
+export interface Props {
+	text: string;
+	utilities?: string;
+}
+
+const text = Astro.props.text;
+const utilities = Astro.props.utilities ?? '';
+---
+
+<p class={`b-labelled-icon ${utilities}`}>
+	{text}
+	<Icon icon="arrow-down" />
+</p>

@@ -1,0 +1,12 @@
+---
+import Closer from '../../../../design/closer.astro';
+
+const items = [
+	{ label: 'Home', href: '#', current: true },
+	{ label: 'Courses', href: '#' },
+	{ label: 'About', href: '#' },
+	{ label: 'Contact', href: '#' },
+];
+---
+
+<Closer navLabel="Secondary" navItems={items} />
