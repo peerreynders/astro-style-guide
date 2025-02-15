@@ -1,0 +1,35 @@
+---
+import Button from './button.astro';
+
+export interface Props {
+	href: string;
+	heading: string;
+	meta: string;
+	buttonLabel: string;
+	img: {
+		src: string;
+		alt: string;
+	};
+	alertText?: string;
+}
+
+const { alertText, buttonLabel, heading, href, img, meta } = Astro.props;
+---
+
+<article class="b-card">
+	<a href={href} >
+		<img src={img.src} alt={img.alt} />
+	</a>
+	<div class="b-card__content c-flow">
+		<h3 class="b-card__heading">{heading}</h3>
+		<p class="b-card__meta">{meta}</p>
+		{
+			alertText && (
+				<p class="b-card__alert">
+					<span>{alertText}</span>
+				</p>
+			)
+		}
+		<Button label={buttonLabel} href={href} />
+	</div>
+</article>

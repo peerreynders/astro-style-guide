@@ -1,0 +1,29 @@
+---
+import PatternPreview from '../../../../layouts/pattern-preview.astro';
+import Preview from '../../../../data/design/pattern/card/preview.astro';
+import WithAlertText from '../../../../data/design/pattern/card/with-alert-text.astro';
+
+import '../../../../styles/blocks/_corner.scss';
+import '../../../../styles/blocks/_button.scss';
+import '../../../../styles/blocks/_card.scss';
+
+export function getStaticPaths() {
+	return [
+		{ params: { path: 'with-alert-text' } },
+		{ params: { path: undefined } },
+	];
+}
+
+const variant = Astro.params.path;
+---
+
+<style is:global>
+	body {
+		.b-card {
+			max-width: 380px;
+		}
+	}
+</style>
+<PatternPreview name="card" title="Card" variant={variant}>
+	{variant ? <WithAlertText /> : <Preview />}
+</PatternPreview>

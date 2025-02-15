@@ -1,17 +1,10 @@
 ---
-import { findPatternByName, fromPatterns } from '../../../lib/collections.js';
 import PatternPreview from '../../../layouts/pattern-preview.astro';
 import Preview from '../../../data/design/pattern/prose/preview.astro';
 
 import '../../../styles/blocks/_prose.scss';
-
-const text = 'Prose';
-const name = text.toLowerCase();
-const patterns = await fromPatterns();
-const item = findPatternByName(patterns, name);
-const title = item?.data.title ?? text;
 ---
 
-<PatternPreview name={name} title={title}>
+<PatternPreview name="prose" title="Prose">
 	<Preview />
 </PatternPreview>
