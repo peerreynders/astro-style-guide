@@ -1,0 +1,34 @@
+---
+import { Image } from 'astro:assets';
+import Icon from './icon.astro';
+
+import type { ImageMetadata } from 'astro';
+const images = import.meta.glob<{ default: ImageMetadata }>(
+	'/src/assets/*.{jpeg,jpg,png,gif}'
+);
+
+export interface Props {
+	href: string;
+	label: string;
+	img: {
+		src: string;
+		alt: string;
+	};
+}
+
+const { href, img, label } = Astro.props;
+if (!images[img.src])
+	throw new Error(
+		`"${img.src}" does not exist in glob: "src/assets/*.{jpeg,jpg,png,gif}"`
+	);
+---
+
+<div class="b-hero">
+	<Image src={images[img.src]()} alt={img.alt} draggable="false" />
+	<a href={href} class="b-hero__skip-link c-flow">
+		<span class="b-hero__skip-link-icon">
+			<Icon icon="arrow-down" />
+		</span>
+		<span class="b-hero__skip-link-label">{label}</span>
+	</a>
+</div>

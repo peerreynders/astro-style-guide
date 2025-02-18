@@ -1,5 +1,11 @@
 ---
+import { Image } from 'astro:assets';
 import Button from './button.astro';
+
+import type { ImageMetadata } from 'astro';
+const images = import.meta.glob<{ default: ImageMetadata }>(
+	'/src/assets/*.{jpeg,jpg,png,gif}'
+);
 
 export interface Props {
 	href: string;
@@ -14,11 +20,15 @@ export interface Props {
 }
 
 const { alertText, buttonLabel, heading, href, img, meta } = Astro.props;
+if (!images[img.src])
+	throw new Error(
+		`"${img.src}" does not exist in glob: "src/assets/*.{jpeg,jpg,png,gif}"`
+	);
 ---
 
 <article class="b-card">
-	<a href={href} >
-		<img src={img.src} alt={img.alt} />
+	<a href={href}>
+		<Image src={images[img.src]()} alt={img.alt} />
 	</a>
 	<div class="b-card__content c-flow">
 		<h3 class="b-card__heading">{heading}</h3>

@@ -1,0 +1,23 @@
+---
+import Nav from './nav.astro';
+
+import type { NavItem } from './nav.astro';
+
+export interface Props {
+	items: Array<NavItem>;
+	brandName: string;
+}
+const { items, brandName } = Astro.props;
+---
+
+<header class="b-site-head c-wrapper">
+	<div class="c-repel b-site-head__inner">
+		<div class="b-site-head__brand">
+			<a href="/">
+				{brandName}
+			</a>
+		</div>
+		<Nav label={'primary'} items={items} />
+	</div>
+	<hr />
+</header>
