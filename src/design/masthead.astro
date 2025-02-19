@@ -1,0 +1,22 @@
+---
+import Icon from './icon.astro';
+
+export interface Props {
+	heading: string;
+	location: string;
+	meta: string;
+}
+const { heading, location, meta } = Astro.props;
+---
+
+<div class="b-masthead">
+	<h1 class="b-masthead__heading">{heading}</h1>
+	<p class="b-masthead__location">{location}</p>
+	<p class="b-masthead__meta">{meta}</p>
+	<div class="b-masthead__logo-left" aria-hidden="true">
+		<Icon icon={'brand-left'} />
+	</div>
+	<div class="b-masthead__logo-right" aria-hidden="true">
+		<Icon icon={'brand-right'} />
+	</div>
+</div>
