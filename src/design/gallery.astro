@@ -1,0 +1,41 @@
+---
+import Button from './button.astro';
+import Item from './gallery/gallery-item.astro';
+
+export type ImageItem = {
+	src: string;
+	alt: string;
+};
+
+export type ImageQuad = [ImageItem, ImageItem, ImageItem, ImageItem];
+
+export interface Props {
+	images: ImageQuad;
+	byline: string;
+	summary: string;
+	button: {
+		href: string;
+		label: string;
+	};
+}
+
+const { button, byline, images, summary } = Astro.props;
+---
+
+<article class="b-gallery c-grid">
+	<Item img={images[0]}>
+		<p slot="before-image" class="b-gallery__byline">{byline}</p>
+	</Item>
+	<Item img={images[1]} />
+	<Item img={images[2]}>
+		<p slot="before-image">{summary}</p>
+	</Item>
+	<Item img={images[3]}>
+		<Button
+			slot="after-image"
+			href={button.href}
+			label={button.label}
+			variant="secondary"
+		/>
+	</Item>
+</article>

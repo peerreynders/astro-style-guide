@@ -1,10 +1,10 @@
 ---
 import Nav from './nav.astro';
 
-import type { NavItem } from './nav.astro';
+import type { Item } from './nav.astro';
 
 export interface Props {
-	items: Array<NavItem>;
+	items: Array<Item>;
 	brandName: string;
 }
 const { items, brandName } = Astro.props;

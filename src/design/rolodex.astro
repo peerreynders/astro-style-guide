@@ -1,0 +1,57 @@
+---
+import { Image } from 'astro:assets';
+
+import type { ImageMetadata } from 'astro';
+
+const images = import.meta.glob<{ default: ImageMetadata }>(
+	'/src/assets/*.{jpeg,jpg,png,gif}'
+);
+
+export type Item = {
+	href: string;
+	theme?: 'light' | 'primary' | 'dark';
+	heading: {
+		number: string;
+		text: string;
+	};
+	img: {
+		src: string;
+		alt: string;
+	};
+};
+
+export interface Props {
+	items: Array<Item>;
+}
+
+const items = Astro.props.items;
+
+for (const item of items)
+	if (!images[item.img.src])
+		throw new Error(
+			`"${item.img.src}" does not exist in glob: "src/assets/*.{jpeg,jpg,png,gif}"`
+		);
+---
+
+<div class="b-rolodex">
+	<ol class="b-rolodex__list c-flow" role="list">
+		{
+			items.map((item) => (
+				<li>
+					<a
+						href={item.href}
+						class="b-rolodex__item c-sidebar"
+						data-rolodex-theme={item.theme ? item.theme : undefined}
+						data-reversed
+					>
+						<h3 class="b-rolodex__heading">
+							<span class="b-rolodex__number">*{item.heading.number}</span>
+							<span>{item.heading.text}</span>
+						</h3>
+						<Image src={images[item.img.src]()} alt={item.img.alt} />
+					</a>
+				</li>
+			))
+		}
+	</ol>
+</div>

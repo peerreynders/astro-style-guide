@@ -1,0 +1,28 @@
+---
+import { Image } from 'astro:assets';
+
+import type { ImageMetadata } from 'astro';
+
+const images = import.meta.glob<{ default: ImageMetadata }>(
+	'/src/assets/*.{jpeg,jpg,png,gif}'
+);
+
+export interface Props {
+	img: {
+		src: string;
+		alt: string;
+	};
+}
+
+const img = Astro.props.img;
+if (!images[img.src])
+	throw new Error(
+		`"${img.src}" does not exist in glob: "src/assets/*.{jpeg,jpg,png,gif}"`
+	);
+---
+
+<div class="c-flow">
+	<slot name="before-image" />
+	<Image src={images[img.src]()} alt={img.alt} loading="lazy" />
+	<slot name="after-image" />
+</div>

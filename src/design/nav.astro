@@ -1,12 +1,12 @@
 ---
-export type NavItem = {
+export type Item = {
 	href: string;
 	label: string;
 	current?: boolean;
 };
 
 export interface Props {
-	items: Array<NavItem>;
+	items: Array<Item>;
 	label?: string;
 	variant?: 'stacked';
 }

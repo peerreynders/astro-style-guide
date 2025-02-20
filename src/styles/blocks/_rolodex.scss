@@ -1,0 +1,73 @@
+@use "../generic" as g;
+
+.b-rolodex {
+  --flow-space: var(--space-3xl);
+  --gutter: var(--space-l);
+}
+
+.b-rolodex__item {
+  --rolodex-text: var(--color-dark);
+  --rolodex-bg: var(--color-light);
+  --rolodex-clip: var(--rolodex-triangle-color, var(--color-dark));
+
+  padding: var(--space-l);
+  background: var(--rolodex-bg);
+  color: var(--rolodex-text);
+  text-decoration: none;
+  position: relative;
+}
+
+.b-rolodex__item::before {
+  content: "";
+  width: clamp(2rem, 10vi, 7.5rem);
+  aspect-ratio: 1/1;
+  position: absolute;
+  pointer-events: none;
+  clip-path: polygon(0 0, 100% 0, 100% 100%);
+  background: var(--rolodex-clip);
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.b-rolodex__item:hover {
+  filter: brightness(105%);
+}
+
+.b-rolodex__heading {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: var(--space-l);
+  margin: 0;
+  font-weight: var(--font-black);
+  font-size: var(--size-step-4);
+}
+
+.b-rolodex__number {
+  font-size: var(--size-step-10);
+}
+
+.b-rolodex img {
+  aspect-ratio: 787/524;
+  object-fit: cover;
+  border-radius: var(--radius-m);
+}
+
+.b-rolodex__item[data-rolodex-theme="primary"] {
+  --rolodex-text: var(--color-dark);
+  --rolodex-bg: var(--color-primary);
+}
+
+.b-rolodex__item[data-rolodex-theme="dark"] {
+  --rolodex-text: var(--color-light);
+  --rolodex-bg: var(--color-dark-glare);
+}
+
+/* Apply a sticky position treatment only for viewports that are large and up */
+@include g.screen("large") {
+  .b-rolodex__list li {
+    position: sticky;
+    top: var(--gutter);
+  }
+}
