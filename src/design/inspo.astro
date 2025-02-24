@@ -1,0 +1,41 @@
+---
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+const images = import.meta.glob<{ default: ImageMetadata }>(
+	'/src/assets/*.{jpeg,jpg,png,gif}'
+);
+export interface Props {
+	heading: string;
+	displayHeading: Array<string>;
+	img: {
+		src: string;
+		alt: string;
+	};
+}
+
+const { displayHeading, heading, img } = Astro.props;
+if (!images[img.src])
+	throw new Error(
+		`"${img.src}" does not exist in glob: "src/assets/*.{jpeg,jpg,png,gif}"`
+	);
+---
+
+<div class="b-inspo u-region u-indent">
+	<div class="b-corner" data-corner-docked="" data-corner-theme="primary"></div>
+	<div class="c-wrapper">
+		<h2 class="u-visually-hidden">{heading}</h2>
+		<div class="b-inspo__grid">
+			{
+				displayHeading.map((line) => (
+					<p class="b-inspo__heading" aria-hidden="true">
+						{line}
+					</p>
+				))
+			}
+			<div class="b-inspo__img">
+				<Image src={images[img.src]()} alt={img.alt} loading="lazy" />
+			</div>
+		</div>
+	</div>
+	<div class="b-inspo__stripe u-indent"></div>
+</div>

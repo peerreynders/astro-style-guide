@@ -36,14 +36,6 @@
 }
 
 @each $key, $space in sp.$space-tokens {
-  .flow-space-#{$key} {
-    --flow-space: #{$space};
-  }
-
-  .gutter-#{$key} {
-    --gutter: #{$space};
-  }
-
   .mb-#{$key} {
     margin-block-end: #{$space};
   }

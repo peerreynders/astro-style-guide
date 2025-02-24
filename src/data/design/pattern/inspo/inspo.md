@@ -2,6 +2,10 @@
 title: Inspo
 ---
 
+### Required patterns
+
+- [Corner](/pattern-library/pattern/corner)
+
 Some really important factors about this pattern are the following:
 
 1. The heading is visually hidden
