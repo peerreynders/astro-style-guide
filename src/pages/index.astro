@@ -1,8 +1,92 @@
 ---
-import Prose from './_prose.astro';
-import PatternPreview from '../layouts/pattern-preview.astro';
+import Base from '../layouts/base.astro';
+import SiteHead from '../design/site-head.astro';
+import Masthead from '../design/masthead.astro';
+import Hero from '../design/hero.astro';
+import Inspo from '../design/inspo.astro';
+import LabelledIcon from '../design/labelled-icon.astro';
+import Button from '../design/button.astro';
+
+import '../styles/blocks/_corner.scss';
+import '../styles/blocks/_button.scss';
+import '../styles/blocks/_nav.scss';
+import '../styles/blocks/_site-head.scss';
+import '../styles/blocks/_masthead.scss';
+import '../styles/blocks/_hero.scss';
+import '../styles/blocks/_inspo.scss';
+import '../styles/blocks/_labelled-icon.scss';
+
+const title = 'Bloom';
+const navigationItems = [
+	{ label: 'Courses', href: '#' },
+	{ label: 'About', href: '#' },
+	{ label: 'Contact', href: '#' },
+];
+const brandName = 'Bloom Barista Academy';
+const heading = 'Barista Academy';
+const location = 'London, UK';
+const meta = '~ Established 2019 ~';
+const hero = {
+	href: '#courses',
+	label: 'Discover our courses',
+	img: {
+		src: '/src/assets/hero.jpg',
+		alt: 'A female barrista with a hat and glasses smiles while making coffee',
+	},
+};
+const inspo = {
+	heading: 'Master the craft.',
+	displayHeading: ['Master', 'the craft.'],
+	img: {
+		src: '/src/assets/inspo.jpg',
+		alt: 'Overhead shot of someone pouring frothed milk into a latté cup.',
+	},
+};
 ---
 
-<PatternPreview name={'Global CCS & Prose'} title={'prose'}>
-	<Prose />
-</PatternPreview>
+<Base title={title}>
+	<div class="bg-dark-glare">
+		<SiteHead items={navigationItems} brandName={brandName} />
+		<div class="c-wrapper">
+			<div class="u-region c-flow c-flow--space-xl">
+				<Masthead heading={heading} location={location} meta={meta} />
+				<Hero href={hero.href} label={hero.label} img={hero.img} />
+			</div>
+		</div>
+		<Inspo
+			heading={inspo.heading}
+			displayHeading={inspo.displayHeading}
+			img={inspo.img}
+		/>
+		<div
+			class="u-region u-region--space-2xl-4xl bg-dark-glare u-indent u-indent--color-primary"
+			id="courses"
+			tabindex="-1"
+		>
+			<div class="c-wrapper c-flow c-flow--space-2xl-4xl">
+				<div class="c-repel items-end">
+					{/* A one-off adjustment so setting the max width with a utility */}
+					<p class="max-w-[25ch]">
+						Our courses teach you the finest barista skills, from our London HQ.
+						Learn from the best in the industry.
+					</p>
+					<LabelledIcon
+						text="Upcoming courses"
+						utilities="text-light text-step-2"
+					/>
+				</div>
+				<div class="c-flow">
+					<div class="c-grid" data-layout="thirds">
+						<p>TODO: Courses Here</p>
+					</div>
+					<div class="c-flow--space-xl">
+						<Button href="#" label="View all courses" />
+					</div>
+				</div>
+				<div class="c-grid" data-layout="50-50">
+					<p>TODO: Quotes Here</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</Base>

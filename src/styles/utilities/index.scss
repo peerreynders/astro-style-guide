@@ -3,21 +3,17 @@
 @use "../generic/settings/space-tokens" as sp;
 
 @each $key, $color in c.$color-tokens {
-  .u-indent-color-#{$key} {
+  .u-indent--color-#{$key} {
     --indent-color: #{$color};
   }
 }
 
 @each $key, $space in sp.$space-tokens {
-  .u-flow-space-#{$key} {
-    --flow-space: #{$space};
-  }
-
-  .u-region-space-#{$key} {
+  .u-region--space-#{$key} {
     --region-space: #{$space};
   }
 
-  .u-gutter-#{$key} {
+  .u-gutter--#{$key} {
     --gutter: #{$space};
   }
 }

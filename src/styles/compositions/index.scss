@@ -1,4 +1,5 @@
 @use "../generic" as g;
+@use "../generic/settings/space-tokens" as sp;
 /*
 CLUSTER
 More info: https://every-layout.dev/layouts/cluster/
@@ -31,6 +32,12 @@ Info about this implementation: https://piccalil.li/blog/my-favourite-3-lines-of
 */
 .c-flow > * + * {
   margin-block-start: var(--flow-space, 1em);
+}
+
+@each $key, $space in sp.$space-tokens {
+  .c-flow--space-#{$key} {
+    --flow-space: #{$space};
+  }
 }
 
 /* AUTO GRID

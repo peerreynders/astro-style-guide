@@ -51,12 +51,20 @@
   align-items: center;
 }
 
+.items-end {
+  align-items: flex-end;
+}
+
 .leading-\[0\.75\] {
   line-height: 0.75;
 }
 
 .leading-\[1\] {
   line-height: 1;
+}
+
+.max-w-\[25ch\] {
+  max-width: 25ch;
 }
 
 .p-\[3px\] {
