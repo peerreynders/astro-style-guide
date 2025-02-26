@@ -9,6 +9,10 @@ import Button from '../design/button.astro';
 import Card from '../design/card.astro';
 import Quote from '../design/quote.astro';
 import Gallery from '../design/gallery.astro';
+import Headline from '../design/headline.astro';
+import Rolodex from '../design/rolodex.astro';
+import Closer from '../design/closer.astro';
+import SiteFoot from '../design/site-foot.html';
 
 import { fromCourses, fromQuotes } from '../lib/collections.js';
 
@@ -22,8 +26,14 @@ import '../styles/blocks/_inspo.scss';
 import '../styles/blocks/_labelled-icon.scss';
 import '../styles/blocks/_card.scss';
 import '../styles/blocks/_gallery.scss';
+import '../styles/blocks/_headline.scss';
+import '../styles/blocks/_rolodex.scss';
+import '../styles/blocks/_closer.scss';
+import '../styles/blocks/_site-foot.scss';
 
 import type { Props as GalleryProps } from '../design/gallery.astro';
+import type { Props as RolodexProps } from '../design/rolodex.astro';
+import type { Props as CloserProps } from '../design/closer.astro';
 
 const title = 'Bloom';
 const navigationItems = [
@@ -79,6 +89,55 @@ const gallery: GalleryProps = {
 			src: '/src/assets/gallery-4.jpg',
 			alt: 'Ambient shot of a coffee shop',
 		},
+	],
+};
+const rolodex: RolodexProps = {
+	items: [
+		{
+			href: '#',
+			theme: 'light',
+			heading: {
+				number: '07',
+				text: 'A step-by-step guide to brewing with Chemex',
+			},
+			img: {
+				src: '/src/assets/rolodex-1.jpg',
+				alt: 'Ground coffee being poured into a Chemex from a height',
+			},
+		},
+		{
+			href: '#',
+			theme: 'primary',
+			heading: {
+				number: '06',
+				text: 'The science of coffee extraction',
+			},
+			img: {
+				src: '/src/assets/rolodex-2.jpg',
+				alt: 'Under-shot of an espresso machine, pouring espresso',
+			},
+		},
+		{
+			href: '#',
+			theme: 'dark',
+			heading: {
+				number: '05',
+				text: 'A guide to achieving next-level latte art',
+			},
+			img: {
+				src: '/src/assets/rolodex-3.jpg',
+				alt: 'A leaf being added to latte foam',
+			},
+		},
+	],
+};
+const closer: CloserProps = {
+	navLabel: 'secondary',
+	navItems: [
+		{ label: 'Home', href: '#', current: true },
+		{ label: 'Courses', href: '#' },
+		{ label: 'About', href: '#' },
+		{ label: 'Contact', href: '#' },
 	],
 };
 ---
@@ -165,4 +224,20 @@ const gallery: GalleryProps = {
 		</div>
 	</div>
 	{/* --- */}
+	<div
+		class="u-region u-region--space-2xl-4xl u-indent u-indent--color-dark-glare"
+	>
+		<div class="c-flow c-flow--space-3xl c-wrapper">
+			<Headline
+				heading="Tasting notes."
+				text="Latest articles"
+				utilities="text-light text-step-2"
+			/>
+			<Rolodex items={rolodex.items} />
+			<Button href="#" label="More articles" />
+		</div>
+	</div>
+	{/* --- */}
+	<Closer navLabel={closer.navLabel} navItems={closer.navItems} />
+	<SiteFoot />
 </Base>
