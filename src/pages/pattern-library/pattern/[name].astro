@@ -1,16 +1,19 @@
 ---
 import { render } from 'astro:content';
 import PatternLibrary from '../../../layouts/pattern-library.astro';
-import { fromPatterns, nameFromPattern } from '../../../lib/collections.js';
+import {
+	fromDesignPatterns,
+	nameFromPattern,
+} from '../../../lib/collections.js';
 import { preparePreviews } from '../../../lib/pattern-preview.js';
 import Pattern from './_pattern.astro';
 
 import '../../../styles/blocks/_button.scss';
 
-import type { CollectionEntry } from 'astro:content';
+import type { DesignPatternEntry } from '../../../lib/collections.js';
 
 export async function getStaticPaths() {
-	return (await fromPatterns()).map((entry) => {
+	return (await fromDesignPatterns()).map((entry) => {
 		const name = nameFromPattern(entry);
 		return {
 			params: {
@@ -26,7 +29,7 @@ export async function getStaticPaths() {
 
 interface Props {
 	name: string;
-	entry: CollectionEntry<'patterns'>;
+	entry: DesignPatternEntry;
 }
 
 const { entry } = Astro.props;

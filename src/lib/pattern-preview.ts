@@ -2,13 +2,14 @@ import { fileURLToPath } from 'node:url';
 import { access, constants, readFile } from 'node:fs/promises';
 import { nameFromPattern } from './collections.js';
 
-import type { CollectionEntry } from 'astro:content';
+import type { DesignPatternEntry } from './collections.js';
 
 const CWD = ((meta: string) => {
 	const filepath = fileURLToPath(meta);
 	const end = filepath.lastIndexOf('src/');
 	return filepath.slice(0, end);
 })(import.meta.url);
+
 const DEFAULT_PREVIEW = 'preview.astro';
 
 type PreviewItem = {
@@ -84,7 +85,7 @@ async function prepareItem(
 			};
 }
 
-async function preparePreviews(entry: CollectionEntry<'patterns'>) {
+async function preparePreviews(entry: DesignPatternEntry) {
 	const patternPath = patternPathFromFile(entry.filePath);
 	const pattern = nameFromPattern(entry);
 	const promises: Array<Promise<PreviewItem>> = [

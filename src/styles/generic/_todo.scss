@@ -67,6 +67,10 @@
   max-width: 25ch;
 }
 
+.mt-2xl-4xl {
+  margin-block-start: s.space("2xl-4xl");
+}
+
 .p-\[3px\] {
   padding: 3px;
 }
@@ -81,4 +85,16 @@
 
 .py-m {
   padding-block: s.space("m");
+}
+
+@media (min-width: s.viewport("mid")) {
+  .md\:text-step-11 {
+    font-size: s.size("11");
+  }
+}
+
+@media (min-width: s.viewport("max")) {
+  .xl\:text-step-12 {
+    font-size: s.size("12");
+  }
 }

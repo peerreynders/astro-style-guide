@@ -1,0 +1,28 @@
+---
+export interface Props {
+	content?: string;
+	quote?: string;
+	cite?: {
+		href?: string;
+		text: string;
+	};
+}
+const { quote, cite } = Astro.props;
+const content = (() => {
+	if (typeof Astro.props.content !== 'string') return undefined;
+	const value = Astro.props.content.trim();
+	return value.length > 0 ? value : undefined;
+})();
+---
+
+<blockquote cite={cite?.href}>
+	{content && <p>{content}</p>}
+	{quote && <q>{quote}</q>}
+	{
+		cite && (
+			<footer>
+				<cite>{cite.text}</cite>
+			</footer>
+		)
+	}
+</blockquote>

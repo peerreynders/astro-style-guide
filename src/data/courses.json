@@ -1,0 +1,69 @@
+[
+  {
+    "id": "essentials-01",
+    "img": {
+      "src": "/src/assets/card-1.jpg",
+      "alt": "An over-head shot of someone making a latte with frothed milk from a jug"
+    },
+    "heading": "Barista essentials",
+    "meta": "Sep 29. London, UK.",
+    "buttonLabel": "Find out more",
+    "href": "#",
+    "alertText": "Last few spots"
+  },
+  {
+    "id": "essentials-02",
+    "img": {
+      "src": "/src/assets/card-2.jpg",
+      "alt": "An over-head shot of someone making a latte with frothed milk from a jug"
+    },
+    "heading": "Barista essentials",
+    "meta": "Sep 29. London, UK.",
+    "buttonLabel": "Find out more",
+    "href": "#"
+  },
+  {
+    "id": "essentials-03",
+    "img": {
+      "src": "/src/assets/card-3.jpg",
+      "alt": "An over-head shot of someone making a latte with frothed milk from a jug"
+    },
+    "heading": "Barista essentials",
+    "meta": "Sep 29. London, UK.",
+    "buttonLabel": "Find out more",
+    "href": "#"
+  },
+  {
+    "id": "essentials-04",
+    "img": {
+      "src": "/src/assets/card-4.jpg",
+      "alt": "An over-head shot of someone making a latte with frothed milk from a jug"
+    },
+    "heading": "Barista essentials",
+    "meta": "Sep 29. London, UK.",
+    "buttonLabel": "Find out more",
+    "href": "#"
+  },
+  {
+    "id": "essentials-05",
+    "img": {
+      "src": "/src/assets/card-5.jpg",
+      "alt": "An over-head shot of someone making a latte with frothed milk from a jug"
+    },
+    "heading": "Barista essentials",
+    "meta": "Sep 29. London, UK.",
+    "buttonLabel": "Find out more",
+    "href": "#"
+  },
+  {
+    "id": "essentials-06",
+    "img": {
+      "src": "/src/assets/card-6.jpg",
+      "alt": "An over-head shot of someone making a latte with frothed milk from a jug"
+    },
+    "heading": "Barista essentials",
+    "meta": "Sep 29. London, UK.",
+    "buttonLabel": "Find out more",
+    "href": "#"
+  }
+]

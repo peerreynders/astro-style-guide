@@ -6,6 +6,11 @@ import Hero from '../design/hero.astro';
 import Inspo from '../design/inspo.astro';
 import LabelledIcon from '../design/labelled-icon.astro';
 import Button from '../design/button.astro';
+import Card from '../design/card.astro';
+import Quote from '../design/quote.astro';
+import Gallery from '../design/gallery.astro';
+
+import { fromCourses, fromQuotes } from '../lib/collections.js';
 
 import '../styles/blocks/_corner.scss';
 import '../styles/blocks/_button.scss';
@@ -15,6 +20,10 @@ import '../styles/blocks/_masthead.scss';
 import '../styles/blocks/_hero.scss';
 import '../styles/blocks/_inspo.scss';
 import '../styles/blocks/_labelled-icon.scss';
+import '../styles/blocks/_card.scss';
+import '../styles/blocks/_gallery.scss';
+
+import type { Props as GalleryProps } from '../design/gallery.astro';
 
 const title = 'Bloom';
 const navigationItems = [
@@ -42,6 +51,36 @@ const inspo = {
 		alt: 'Overhead shot of someone pouring frothed milk into a latté cup.',
 	},
 };
+
+const courses = await fromCourses();
+const quotes = await fromQuotes();
+const gallery: GalleryProps = {
+	byline: 'the two go hand in hand',
+	summary:
+		'Our London HQ is home to a community of passionate coffee lovers and baristas.',
+	button: {
+		href: '#',
+		label: 'About us',
+	},
+	images: [
+		{
+			src: '/src/assets/gallery-1.jpg',
+			alt: 'An over head shot of someone handing a latte to another person',
+		},
+		{
+			src: '/src/assets/gallery-2.jpg',
+			alt: 'Three people holding their coffees up as they are about to “cheers”',
+		},
+		{
+			src: '/src/assets/gallery-3.jpg',
+			alt: 'A friendly looking Barista looking straight at the camera with a coffee shop kitchen in the background',
+		},
+		{
+			src: '/src/assets/gallery-4.jpg',
+			alt: 'Ambient shot of a coffee shop',
+		},
+	],
+};
 ---
 
 <Base title={title}>
@@ -53,40 +92,77 @@ const inspo = {
 				<Hero href={hero.href} label={hero.label} img={hero.img} />
 			</div>
 		</div>
-		<Inspo
-			heading={inspo.heading}
-			displayHeading={inspo.displayHeading}
-			img={inspo.img}
-		/>
-		<div
-			class="u-region u-region--space-2xl-4xl bg-dark-glare u-indent u-indent--color-primary"
-			id="courses"
-			tabindex="-1"
-		>
-			<div class="c-wrapper c-flow c-flow--space-2xl-4xl">
-				<div class="c-repel items-end">
-					{/* A one-off adjustment so setting the max width with a utility */}
-					<p class="max-w-[25ch]">
-						Our courses teach you the finest barista skills, from our London HQ.
-						Learn from the best in the industry.
-					</p>
-					<LabelledIcon
-						text="Upcoming courses"
-						utilities="text-light text-step-2"
-					/>
+	</div>
+	{/* --- */}
+	<Inspo
+		heading={inspo.heading}
+		displayHeading={inspo.displayHeading}
+		img={inspo.img}
+	/>
+	{/* --- */}
+	<div
+		class="u-region u-region--space-2xl-4xl bg-dark-glare u-indent u-indent--color-primary"
+		id="courses"
+		tabindex="-1"
+	>
+		<div class="c-wrapper c-flow c-flow--space-2xl-4xl">
+			<div class="c-repel items-end">
+				{/* A one-off adjustment so setting the max width with a utility */}
+				<p class="max-w-[25ch]">
+					Our courses teach you the finest barista skills, from our London HQ.
+					Learn from the best in the industry.
+				</p>
+				<LabelledIcon
+					text="Upcoming courses"
+					utilities="text-light text-step-2"
+				/>
+			</div>
+			<div class="c-flow">
+				<div class="c-grid" data-layout="thirds">
+					{
+						courses.map(({ data }) => (
+							<Card
+								href={data.href}
+								heading={data.heading}
+								meta={data.meta}
+								buttonLabel={data.buttonLabel}
+								img={data.img}
+								alertText={data.alertText}
+							/>
+						))
+					}
 				</div>
-				<div class="c-flow">
-					<div class="c-grid" data-layout="thirds">
-						<p>TODO: Courses Here</p>
-					</div>
-					<div class="c-flow--space-xl">
-						<Button href="#" label="View all courses" />
-					</div>
+				<div class="c-flow--space-xl">
+					<Button href="#" label="View all courses" />
 				</div>
-				<div class="c-grid" data-layout="50-50">
-					<p>TODO: Quotes Here</p>
-				</div>
+			</div>
+			<div class="c-grid" data-layout="50-50">
+				{
+					quotes.map(({ data }) => (
+						<Quote content={data.content} quote={data.quote} cite={data.cite} />
+					))
+				}
 			</div>
 		</div>
 	</div>
+	{/* --- */}
+	<div
+		class="u-region u-region--space-2xl-4xl bg-primary text-dark u-indent u-indent--color-primary"
+	>
+		<div class="b-corner" data-corner-docked></div>
+		<div class="c-wrapper">
+			<h2 class="text-step-10 md:text-step-11 xl:text-step-12">
+				Coffee & community.
+			</h2>
+			<div class="mt-2xl-4xl">
+				<Gallery
+					images={gallery.images}
+					byline={gallery.byline}
+					summary={gallery.summary}
+					button={gallery.button}
+				/>
+			</div>
+		</div>
+	</div>
+	{/* --- */}
 </Base>

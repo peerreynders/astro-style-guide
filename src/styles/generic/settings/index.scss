@@ -2,6 +2,7 @@
 @use "sass:map";
 @use "tools" as tl;
 @use "color-tokens" as c;
+@use "size-tokens" as sz;
 @use "space-tokens" as sp;
 @use "viewport-tokens" as vw;
 
@@ -11,8 +12,16 @@ $stroke-width: 1px;
   @return tl.from-map(c.$color-tokens, "color", $key);
 }
 
+@function size($key) {
+  @return tl.from-map(sz.$size-tokens, "size", $key);
+}
+
 @function space($key) {
   @return tl.from-map(sp.$space-tokens, "space", $key);
+}
+
+@function viewport($key) {
+  @return tl.from-map(vw.$viewport-tokens, "viewport", $key);
 }
 
 @mixin screen($key) {

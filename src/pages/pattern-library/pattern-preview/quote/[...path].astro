@@ -1,0 +1,15 @@
+---
+import PatternPreview from '../../../../layouts/pattern-preview.astro';
+import Preview from '../../../../data/design/pattern/quote/preview.astro';
+import WithCite from '../../../../data/design/pattern/quote/with-cite.astro';
+
+export function getStaticPaths() {
+	return [{ params: { path: 'with-cite' } }, { params: { path: undefined } }];
+}
+
+const variant = Astro.params.path;
+---
+
+<PatternPreview name="quote" title="Quote" variant={variant}>
+	{variant === 'with-cite' ? <WithCite /> : <Preview />}
+</PatternPreview>

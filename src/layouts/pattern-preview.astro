@@ -1,8 +1,8 @@
 ---
-import { findPatternByName, fromPatterns } from '../lib/collections.js';
+import { findPatternByName, fromDesignPatterns } from '../lib/collections.js';
 import PreviewPage from './preview-page.astro';
 
-import type { CollectionEntry } from 'astro:content';
+import type { DesignPatternEntry } from '../lib/collections.js';
 
 export interface Props {
 	name: string;
@@ -10,10 +10,7 @@ export interface Props {
 	variant?: string;
 }
 
-function variantTitleFromEntry(
-	entry?: CollectionEntry<'patterns'>,
-	variant?: string
-) {
+function variantTitleFromEntry(entry?: DesignPatternEntry, variant?: string) {
 	return (
 		(variant &&
 			entry &&
@@ -24,7 +21,7 @@ function variantTitleFromEntry(
 
 function previewPageTitle(
 	defaultTitle: string,
-	entry?: CollectionEntry<'patterns'>,
+	entry?: DesignPatternEntry,
 	variant?: string
 ) {
 	const variantTitle = variantTitleFromEntry(entry, variant);
@@ -32,7 +29,7 @@ function previewPageTitle(
 }
 
 const { name, title: fallbackTitle, variant } = Astro.props;
-const patterns = await fromPatterns();
+const patterns = await fromDesignPatterns();
 const entry = findPatternByName(patterns, name);
 const title = previewPageTitle(fallbackTitle, entry, variant);
 ---

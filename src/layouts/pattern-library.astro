@@ -1,10 +1,10 @@
 ---
 import {
-	fromPatterns,
-	fromSidebar,
+	fromDesignPatterns,
+	fromDesignSidebar,
 	hrefFromPattern,
 	sortPatternsByNameAsc,
-} from '../lib/collections';
+} from '../lib/collections.js';
 import Base from './base.astro';
 import Closer from '../design/closer.astro';
 import Icon from '../design/icon.astro';
@@ -27,8 +27,8 @@ export type Props = {
 const pageHref = Astro.url.pathname;
 const title = Astro.props.title ?? 'Pattern-Library';
 const toc = Astro.props.toc;
-const patterns = sortPatternsByNameAsc(await fromPatterns());
-const sidebar = (await fromSidebar()).map((item) => item.data);
+const patterns = sortPatternsByNameAsc(await fromDesignPatterns());
+const sidebar = (await fromDesignSidebar()).map((item) => item.data);
 ---
 
 <Base title={title}>
