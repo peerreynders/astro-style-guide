@@ -29,6 +29,12 @@ importers:
       sass:
         specifier: ^1.84.0
         version: 1.84.0
+      ts-blank-space:
+        specifier: ^0.6.0
+        version: 0.6.0
+      valibot:
+        specifier: 1.0.0-rc.2
+        version: 1.0.0-rc.2(typescript@5.7.3)
 
 packages:
   "@astrojs/check@0.9.4":
@@ -2677,6 +2683,13 @@ packages:
         integrity: sha512-tmMpK00BjZiUyVyvrBK7knerNgmgvcV/KLVyuma/SC+TQN167GrMRciANTz09+k3zW8L8t60jWO1GpfkZdjTaw==,
       }
 
+  ts-blank-space@0.6.0:
+    resolution:
+      {
+        integrity: sha512-/idfg2ezyTe9YjfLPoFEjFnBCM0rnB1yp64q7+ujaz4UwBSasA28hiOW3FoRLXLpNMtwE3JlnuLZdOUoZNxhrQ==,
+      }
+    engines: { node: ">=18.0.0" }
+
   tsconfck@3.1.5:
     resolution:
       {
@@ -2867,6 +2880,17 @@ packages:
       ioredis:
         optional: true
       uploadthing:
+        optional: true
+
+  valibot@1.0.0-rc.2:
+    resolution:
+      {
+        integrity: sha512-Tnnp7dydpihvoUbJiaxuYfsCAgAFKuFMex7PTaI25XSjRWkU70DmJPlAO1W6sF1/WUx4RNWyM2hdmBSMIUSZFA==,
+      }
+    peerDependencies:
+      typescript: ">=5"
+    peerDependenciesMeta:
+      typescript:
         optional: true
 
   vfile-location@5.0.3:
@@ -5046,6 +5070,10 @@ snapshots:
 
   trough@2.2.0: {}
 
+  ts-blank-space@0.6.0:
+    dependencies:
+      typescript: 5.7.3
+
   tsconfck@3.1.5(typescript@5.7.3):
     optionalDependencies:
       typescript: 5.7.3
@@ -5133,6 +5161,10 @@ snapshots:
       node-fetch-native: 1.6.6
       ofetch: 1.4.1
       ufo: 1.5.4
+
+  valibot@1.0.0-rc.2(typescript@5.7.3):
+    optionalDependencies:
+      typescript: 5.7.3
 
   vfile-location@5.0.3:
     dependencies:
