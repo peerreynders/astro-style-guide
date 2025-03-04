@@ -1,5 +1,5 @@
 import * as v from 'valibot';
-import { readContent, streamEntries, writeMap } from './shared.js';
+import { transferToSettings } from './shared.js';
 
 import type { BaseConfig } from './shared.js';
 
@@ -14,19 +14,19 @@ const sizeTokenSchema = v.array(
 type SizeTokenSchema = v.InferOutput<typeof sizeTokenSchema>;
 type SizeToken = SizeTokenSchema[number];
 
-type SizeEntry = {
+type FluidToken = {
 	id: string;
 	data:
 		| number
 		| [minRem: number, baseRem: number, vwOffset: number, maxRem: number];
 };
 
-function toSizeEntry(
+function toFluidToken(
 	rootPx: number,
 	minWidthRem: number,
 	maxWidthRem: number,
 	token: SizeToken
-): SizeEntry {
+): FluidToken {
 	if (token.min === token.max) {
 		// i.e. fixed size in rem
 		return { id: token.id, data: token.min / rootPx };
@@ -48,33 +48,19 @@ function toSizeEntry(
 
 type SizeConfig = BaseConfig;
 
-const sizeEntryToString = (entry: SizeEntry) =>
-	`\t"${entry.id}": ${typeof entry.data === 'number' ? `${entry.data.toFixed(2)}rem` : `clamp(${entry.data[0]}rem, ${entry.data[1].toFixed(2)}rem + ${entry.data[2].toFixed(2)}vw, ${entry.data[3]}rem)`},\n`;
-
-async function sizeTokensToSettings(
-	config: SizeConfig,
-	projectPath: string,
+function makeContentToTokens(
 	rootPx: number,
 	minWidthRem: number,
 	maxWidthRem: number
 ) {
-	try {
-		const content = await readContent(projectPath + config.source);
-		const tokens = v.parse(sizeTokenSchema, JSON.parse(content));
-		const entries = tokens.map((token) =>
-			toSizeEntry(rootPx, minWidthRem, maxWidthRem, token)
-		);
-		await writeMap(
-			(out) => streamEntries(entries, sizeEntryToString, out),
-			config.target.id,
-			projectPath + config.target.path,
-			config.source
-		);
-	} catch (error) {
-		console.error(error);
-		throw error;
-	}
+	return (content: string) =>
+		v
+			.parse(sizeTokenSchema, JSON.parse(content))
+			.map((token) => toFluidToken(rootPx, minWidthRem, maxWidthRem, token));
 }
+
+const fluidTokenToString = (token: FluidToken) =>
+	`\t"${token.id}": ${typeof token.data === 'number' ? `${token.data.toFixed(2)}rem` : `clamp(${token.data[0]}rem, ${token.data[1].toFixed(2)}rem + ${token.data[2].toFixed(2)}vw, ${token.data[3]}rem)`},\n`;
 
 const viewPortSchema = v.intersect([
 	v.object({
@@ -83,8 +69,6 @@ const viewPortSchema = v.intersect([
 	}),
 	v.record(v.string(), v.number()),
 ]);
-
-type ViewPortSchema = v.InferOutput<typeof viewPortSchema>;
 
 export type ViewPortsConfig = BaseConfig & {
 	kind: 'viewport';
@@ -102,32 +86,50 @@ async function viewPortsToSettings(
 	config: ViewPortsConfig,
 	projectPath: string
 ) {
-	let viewPorts: ViewPortSchema;
-	try {
-		const content = await readContent(projectPath + config.source);
-		viewPorts = v.parse(viewPortSchema, JSON.parse(content));
-		const entries = Object.entries(viewPorts).sort(byViewPortWidthAsc);
-		await writeMap(
-			(out) => streamEntries(entries, toString, out),
-			config.target.id,
-			projectPath + config.target.path,
-			config.source
-		);
-	} catch (error) {
-		console.error(error);
-		throw [error as Error];
-	}
+	let minViewPort = 0;
+	let maxViewPort = 0;
 
-	if (config.fluid && config.fluid.configs.length > 0) {
-		const rootPx = config.fluid.rootPx;
-		const minRem = viewPorts.min / rootPx;
-		const maxRem = viewPorts.max / rootPx;
+	const contentToTokens = (content: string) => {
+		const viewPorts = v.parse(viewPortSchema, JSON.parse(content));
+		minViewPort = viewPorts.min;
+		maxViewPort = viewPorts.max;
+		return Object.entries(viewPorts).sort(byViewPortWidthAsc);
+	};
+
+	transferToSettings({
+		source: projectPath + config.source,
+		target: projectPath + config.target.path,
+		from: config.source,
+		id: config.target.id,
+		contentToTokens,
+		tokenToString: toString,
+	});
+
+	if (
+		minViewPort > 0 &&
+		minViewPort <= maxViewPort &&
+		config.fluid &&
+		config.fluid.configs.length > 0
+	) {
+		const contentToTokens = makeContentToTokens(
+			config.fluid.rootPx,
+			minViewPort / config.fluid.rootPx,
+			maxViewPort / config.fluid.rootPx
+		);
 
 		const tasks = Promise.allSettled(
 			config.fluid.configs.map((c) =>
-				sizeTokensToSettings(c, projectPath, rootPx, minRem, maxRem)
+				transferToSettings({
+					source: projectPath + c.source,
+					target: projectPath + c.target.path,
+					from: c.source,
+					id: c.target.id,
+					contentToTokens,
+					tokenToString: fluidTokenToString,
+				})
 			)
 		);
+
 		const errors = (await tasks).reduce<Array<Error>>((collect, result) => {
 			if (result.status === 'rejected') collect.push(result.reason as Error);
 			return collect;

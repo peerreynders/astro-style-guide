@@ -1,5 +1,5 @@
 import * as v from 'valibot';
-import { readContent, streamEntries, writeMap } from './shared.js';
+import { transferToSettings } from './shared.js';
 
 import type { BaseConfig } from './shared.js';
 
@@ -15,23 +15,21 @@ export type FontsConfig = BaseConfig & {
 	kind: 'fonts';
 };
 
-const toString = (entry: FontTokenSchema[number]) =>
-	`\t"${entry.id}": "${entry.value.join(', ')}",\n`;
+const toTokens = (content: string) =>
+	v.parse(fontTokenSchema, JSON.parse(content));
+
+const toString = (token: FontTokenSchema[number]) =>
+	`\t"${token.id}": "${token.value.join(', ')}",\n`;
 
 async function fontsToSettings(config: FontsConfig, projectPath: string) {
-	try {
-		const content = await readContent(projectPath + config.source);
-		const tokens = v.parse(fontTokenSchema, JSON.parse(content));
-		await writeMap(
-			(out) => streamEntries(tokens, toString, out),
-			config.target.id,
-			projectPath + config.target.path,
-			config.source
-		);
-	} catch (error) {
-		console.error(error);
-		throw [error as Error];
-	}
+	transferToSettings({
+		source: projectPath + config.source,
+		target: projectPath + config.target.path,
+		from: config.source,
+		id: config.target.id,
+		contentToTokens: toTokens,
+		tokenToString: toString,
+	});
 }
 
 export { fontsToSettings };

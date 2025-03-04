@@ -2,6 +2,14 @@ import { tokensToSettings } from './src/tool/tokens-to-settings.js';
 
 await tokensToSettings([
 	{
+		kind: 'colors',
+		source: '/src/data/design/tokens/colors.json',
+		target: {
+			id: 'color-tokens',
+			path: '/src/tool/_color-tokens.scss',
+		},
+	},
+	{
 		kind: 'fonts',
 		source: '/src/data/design/tokens/fonts.json',
 		target: {

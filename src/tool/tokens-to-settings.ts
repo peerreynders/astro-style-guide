@@ -1,7 +1,9 @@
 import { fileURLToPath } from 'node:url';
+import { colorsToSettings } from './colors.js';
 import { fontsToSettings } from './fonts.js';
 import { viewPortsToSettings } from './view-ports.js';
 
+import type { ColorsConfig } from './colors.js';
 import type { FontsConfig } from './fonts.js';
 import type { ViewPortsConfig } from './view-ports.js';
 
@@ -11,12 +13,15 @@ const PROJECT_PATH = ((fileURL: string) => {
 	return filePath.slice(0, end);
 })(import.meta.url);
 
-type SettingsConfig = Array<FontsConfig | ViewPortsConfig>;
+type SettingsConfig = Array<ColorsConfig | FontsConfig | ViewPortsConfig>;
 
 async function tokensToSettings(config: SettingsConfig) {
 	const tasks = Promise.allSettled(
 		config.map((c) => {
 			switch (c.kind) {
+				case 'colors':
+					return colorsToSettings(c, PROJECT_PATH);
+
 				case 'fonts':
 					return fontsToSettings(c, PROJECT_PATH);
 
