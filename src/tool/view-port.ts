@@ -70,7 +70,7 @@ const viewPortSchema = v.intersect([
 	v.record(v.string(), v.number()),
 ]);
 
-export type ViewPortsConfig = BaseConfig & {
+export type ViewPortConfig = BaseConfig & {
 	kind: 'viewport';
 	fluid: {
 		rootPx: number;
@@ -82,10 +82,7 @@ const byViewPortWidthAsc = ([, a]: [string, number], [, b]: [string, number]) =>
 	a - b;
 const toString = ([id, width]: [string, number]) => `\t"${id}": ${width}px,\n`;
 
-async function viewPortsToSettings(
-	config: ViewPortsConfig,
-	projectPath: string
-) {
+async function viewPortToSettings(config: ViewPortConfig, projectPath: string) {
 	let minViewPort = 0;
 	let maxViewPort = 0;
 
@@ -96,7 +93,7 @@ async function viewPortsToSettings(
 		return Object.entries(viewPorts).sort(byViewPortWidthAsc);
 	};
 
-	transferToSettings({
+	await transferToSettings({
 		source: projectPath + config.source,
 		target: projectPath + config.target.path,
 		from: config.source,
@@ -138,4 +135,4 @@ async function viewPortsToSettings(
 	}
 }
 
-export { viewPortsToSettings };
+export { viewPortToSettings };

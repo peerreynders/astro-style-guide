@@ -11,17 +11,17 @@ const colorTokenSchema = v.array(
 );
 type ColorTokenSchema = v.InferOutput<typeof colorTokenSchema>;
 
-export type ColorsConfig = BaseConfig & {
-	kind: 'colors';
+export type ColorConfig = BaseConfig & {
+	kind: 'color';
 };
 
 const toTokens = (content: string) =>
 	v.parse(colorTokenSchema, JSON.parse(content));
 
 const toString = (token: ColorTokenSchema[number]) =>
-	`\t"${token.id}": "${token.value}",\n`;
+	`\t"${token.id}": ${token.value},\n`;
 
-async function colorsToSettings(config: ColorsConfig, projectPath: string) {
+async function colorToSettings(config: ColorConfig, projectPath: string) {
 	transferToSettings({
 		source: projectPath + config.source,
 		target: projectPath + config.target.path,
@@ -32,4 +32,4 @@ async function colorsToSettings(config: ColorsConfig, projectPath: string) {
 	});
 }
 
-export { colorsToSettings };
+export { colorToSettings };

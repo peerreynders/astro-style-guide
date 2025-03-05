@@ -2,7 +2,7 @@ import { tokensToSettings } from './src/tool/tokens-to-settings.js';
 
 await tokensToSettings([
 	{
-		kind: 'colors',
+		kind: 'color',
 		source: '/src/data/design/tokens/colors.json',
 		target: {
 			id: 'color-tokens',
@@ -10,11 +10,19 @@ await tokensToSettings([
 		},
 	},
 	{
-		kind: 'fonts',
+		kind: 'font',
 		source: '/src/data/design/tokens/fonts.json',
 		target: {
 			id: 'font-tokens',
 			path: '/src/tool/_font-tokens.scss',
+		},
+	},
+	{
+		kind: 'leading',
+		source: '/src/data/design/tokens/text-leading.json',
+		target: {
+			id: 'leading-tokens',
+			path: '/src/tool/_leading-tokens.scss',
 		},
 	},
 	{
@@ -42,6 +50,14 @@ await tokensToSettings([
 					},
 				},
 			],
+		},
+	},
+	{
+		kind: 'weight',
+		source: '/src/data/design/tokens/text-weights.json',
+		target: {
+			id: 'weight-tokens',
+			path: '/src/tool/_weight-tokens.scss',
 		},
 	},
 ]);

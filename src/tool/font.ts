@@ -11,8 +11,8 @@ const fontTokenSchema = v.array(
 );
 type FontTokenSchema = v.InferOutput<typeof fontTokenSchema>;
 
-export type FontsConfig = BaseConfig & {
-	kind: 'fonts';
+export type FontConfig = BaseConfig & {
+	kind: 'font';
 };
 
 const toTokens = (content: string) =>
@@ -21,7 +21,7 @@ const toTokens = (content: string) =>
 const toString = (token: FontTokenSchema[number]) =>
 	`\t"${token.id}": "${token.value.join(', ')}",\n`;
 
-async function fontsToSettings(config: FontsConfig, projectPath: string) {
+async function fontToSettings(config: FontConfig, projectPath: string) {
 	transferToSettings({
 		source: projectPath + config.source,
 		target: projectPath + config.target.path,
@@ -32,4 +32,4 @@ async function fontsToSettings(config: FontsConfig, projectPath: string) {
 	});
 }
 
-export { fontsToSettings };
+export { fontToSettings };
